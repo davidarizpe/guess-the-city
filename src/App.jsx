@@ -8,7 +8,7 @@ function App() {
   const [language, setLanguage] = useState('en')
   const [theme, setheme] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
   const [cities, setCities] = useState(translations.cities[language])
-  const [points, setPoints] = useState(8)
+  const [points, setPoints] = useState(0)
   const [win, setWin] = useState(false)
 
   const answer = useRef(null)
