@@ -26,7 +26,7 @@ h1.title {
   padding: 15px;
 }
 
-.styles {
+.config {
   display: flex;
   gap: 30px;
 }
@@ -36,8 +36,10 @@ section.languages {
   gap: 30px;
 }
 
-section.styles div {
+section.config div {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 30px;
 }
 

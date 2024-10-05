@@ -4,10 +4,15 @@ import dark from '/public/dark_mode.svg'
 import light from '/public/light_mode.svg'
 import { useEffect,  useRef,  useState } from "react";
 
+const defaultOptions = {
+  'theme': window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
+  'language': navigator.language == 'es-ES' ? 'es' : 'en',
+};
+
 function App() {
-  const [language, setLanguage] = useState('en')
-  const [theme, setheme] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-  const [cities, setCities] = useState(translations.cities[language])
+  const [language, setLanguage] = useState(navigator.language)
+  const [theme, setheme] = useState(defaultOptions.theme)
+  const [cities, setCities] = useState(defaultOptions.language)
   const [points, setPoints] = useState(0)
   const [win, setWin] = useState(false)
 
@@ -58,21 +63,15 @@ function App() {
     <div className='App'>
       <nav className="nav">
         <h1 className="title">{translations.title[language]}</h1>
-          <section className="styles">
+          <section className="config">
             <div className="languages">
-              <button className='mode-btn' id="spanish" onClick={() => setLanguage('es')}>
-              <img src={translations.image.es} alt="spanish" className='img-language' />
-              </button>          
-              <button className='mode-btn' id="english" onClick={() => setLanguage('en')}>
-                <img src={translations.image.en} alt="english" className='img-language' />
-              </button>
+              <button className='mode-btn' onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}>
+              <img src={language === 'en' ? translations.image.es : translations.image.en} alt="spanish" className='img-language' />
+              </button> 
             </div>
-            <div className="mode">
-              <button className='mode-btn' onClick={() => setheme('dark')}>
-                <img src={dark} alt="dark theme" className={`img-theme ${theme}`} />
-              </button>
-              <button className='mode-btn' onClick={() => setheme('light')}>
-                <img src={light} alt="light theme" className={`img-theme ${theme}`} />
+            <div className="themes">
+              <button className='mode-btn' onClick={() => setheme(theme === 'light' ? 'dark' : 'light')}>
+                <img src={theme === 'light' ? light : dark} alt="dark theme" className={`img-theme ${theme}`} />
               </button>
             </div>
           </section>
