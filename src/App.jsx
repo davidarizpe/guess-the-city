@@ -15,6 +15,7 @@ function App() {
   const [cities, setCities] = useState(defaultOptions.language)
   const [points, setPoints] = useState(0)
   const [win, setWin] = useState(false)
+  const [error, setError] = useState('')
 
   const answer = useRef(null)
 
@@ -22,21 +23,26 @@ function App() {
   const sumbit = (e) => {
     e.preventDefault()
     
-    let value = answer.current.value;
-    let city = cities[points]
+    if (answer && cities) {
+      const value = answer.current.value
+      const city = cities[points]
     
-    if (value.toLowerCase() === city.name.toLowerCase() || value.toLowerCase() === city.abbreviation?.toLowerCase()) {
-      if (cities[points + 1]) {
-        setPoints(points + 1)
-        answer.current.value = ''
+      if (value.toLowerCase() === city.name.toLowerCase() || value.toLowerCase() === city.abbreviation?.toLowerCase()) {
+        if (cities[points + 1]) {
+          setPoints(points + 1)
+          answer.current.value = ''
+          return
+        }
+        
+        setWin(true)
         return
+      } else {
+        points > 0 ? setPoints(points - 1) : null
+        answer.current.value = ''
       }
-      
-      setWin(true)
-      return
     } else {
-      points > 0 ? setPoints(points - 1) : null
-      answer.current.value = ''
+      setError('Dont have cities')
+      return
     }
   }
   
@@ -89,6 +95,12 @@ function App() {
       {
         win && (
           <Confetti />
+        )
+      }
+
+      {
+        error && (
+          <p className="error">{error}</p>
         )
       }
     </div>
