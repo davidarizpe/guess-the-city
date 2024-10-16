@@ -1,7 +1,7 @@
 import Confetti from 'react-confetti-explosion';
-import translations from '/public/language/translations.js'
-import dark from '/public/dark_mode.svg'
-import light from '/public/light_mode.svg'
+import translations from '../public/language/translations'
+import dark from '../public/dark_mode.svg'
+import light from '../public/light_mode.svg'
 import { useEffect,  useRef,  useState } from "react";
 
 const defaultOptions = {
